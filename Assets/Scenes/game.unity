@@ -297,12 +297,11 @@ MonoBehaviour:
   WalkingSpeed: 0
   SprintingSpeed: 0
   CrouchingSpeed: 0
-  lookinput: {fileID: 0}
-  jumpinput: {fileID: 0}
-  sprintinput: {fileID: 0}
-  crouchinput: {fileID: 0}
-  zoominput: {fileID: 0}
-  moveinput: {x: 0, y: 0, z: 0}
+  lookinput: {fileID: 2076989124459381579, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  jumpinput: {fileID: 7048443009983936713, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  sprintinput: {fileID: 1967846816554302956, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  crouchinput: {fileID: -8679938159756763931, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  zoominput: {fileID: 875230612576309054, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
 --- !u!1 &203844586
 GameObject:
   m_ObjectHideFlags: 0

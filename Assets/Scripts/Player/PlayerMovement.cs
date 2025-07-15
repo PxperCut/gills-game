@@ -35,7 +35,6 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Controls")]
     [SerializeField] private InputActionReference lookinput, jumpinput, sprintinput, crouchinput, zoominput;
-    public Vector3 moveinput;
     private Vector3 airspeed;
 
     private bool wasFalling = false;
@@ -79,9 +78,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //---Movement---
-        Vector3 move = new Vector3(moveinput.x * MovementSpeed, 0f, moveinput.z * MovementSpeed).normalized;
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
+        Vector3 move = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
-        if (IsGrounded)//move here
+        if (IsGrounded&&move.magnitude>=1f)//move here
         {
             float targetangle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + PlayerCamera.transform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnsmoothvelocity, turnsmoothtime);
@@ -90,15 +91,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 movedir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
 
             Character.Move(movedir * MovementSpeed * Time.deltaTime - Velocity * Time.deltaTime);
-            airspeed = Character.velocity;
-            airspeed.y = 0;
-        }
-        else//if the character isn't grounded, we limit their air control
-        {
-            float airControlFactor = 0.4f;
-            Vector3 airControl = move * MovementSpeed * airControlFactor;
-            airspeed = Vector3.Lerp(airspeed, Vector3.zero, Time.deltaTime * 2);
-            Character.Move((airspeed + airControl) * Time.deltaTime - Velocity * Time.deltaTime);
         }
 
         //Sprinting
@@ -184,10 +176,5 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
-    }
-
-    void OnMove(InputValue value)
-    {
-        moveinput = value.Get<Vector3>();
     }
 }
