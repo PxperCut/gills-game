@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 5c863ba8a3c14a341b5cc24f172bf3f2
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - GlobalVariables: {instanceID: 0}
+  - Character: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - Neck: {instanceID: 0}
+  - PlayerCamera: {instanceID: 0}
+  - Groundcheck: {instanceID: 0}
+  - camAnim: {instanceID: 0}
+  - Look: {fileID: 2076989124459381579, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  - Jump: {fileID: 7048443009983936713, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  - Sprint: {fileID: 1967846816554302956, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  - Crouch: {fileID: -8679938159756763931, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  - Zoom: {fileID: 875230612576309054, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
