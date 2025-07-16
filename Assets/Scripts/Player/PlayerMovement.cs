@@ -1,10 +1,15 @@
 using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
+using UnityEngine.Analytics;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public float minFOV;
+    public float maxFOV;
+    public float ScrollSensitivity;
+    public float FOV;
+    
     public GlobalVariables GlobalVariables;
 
     [Header("Player")]
@@ -34,11 +39,7 @@ public class PlayerMovement : MonoBehaviour
     private bool IsCrouching;
 
     [Header("Controls")]
-    [SerializeField] private InputActionReference lookinput, jumpinput, sprintinput, crouchinput, zoominput;
-    private Vector3 airspeed;
-
-    private bool wasFalling = false;
-
+    [SerializeField] private InputActionReference moveinput, lookinput, jumpinput, sprintinput, crouchinput, zoominput;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -56,33 +57,21 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //Gravity Shit
+        
+        Character.Move(Velocity * Time.deltaTime);
         IsGrounded = Physics.CheckSphere(Groundcheck.position, 0.6f, groundmask);
 
-        if (IsGrounded && wasFalling == true && Velocity.y > -0.1f)
+        if (IsGrounded && Velocity.y > 0f)
         {
-            wasFalling = false;
-            print("Landed");
+            Debug.Log("Landed");
+            Velocity.y = -2f;
         }
-        else if (!IsGrounded && Velocity.y < 0)
-        {
-            wasFalling = true;
-        }
-
-        if (IsGrounded && Velocity.y > 0)
-        {
-            Velocity.y = 4f;
-        }
-        else
-        {
-            Velocity.y += Gravity * GravityMultiplier * Time.deltaTime;
-        }
+         Velocity.y -= Gravity * Time.deltaTime;
 
         //---Movement---
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector3 move = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+        Vector3 move = moveinput.action.ReadValue<Vector3>().normalized;
 
-        if (IsGrounded&&move.magnitude>=1f)//move here
+        if (move.magnitude>=1f)//move here
         {
             float targetangle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + PlayerCamera.transform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnsmoothvelocity, turnsmoothtime);
@@ -90,8 +79,9 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 movedir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
 
-            Character.Move(movedir * MovementSpeed * Time.deltaTime - Velocity * Time.deltaTime);
+            Character.Move(movedir * MovementSpeed * Time.deltaTime);
         }
+        //camera
 
         //Sprinting
         if (IsSprinting && !IsCrouching && Character.velocity.magnitude > 0.1f)
@@ -151,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
             if (context.performed)
             {
                 IsCrouching = false;
-                Velocity.y = -JumpPower;
+                Velocity.y = JumpPower;
             }
         }
     }
