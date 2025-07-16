@@ -2,21 +2,23 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using UnityEngine.Analytics;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private float CurrentFOV=40f;
     public float minFOV;
     public float maxFOV;
     public float ScrollSensitivity;
-    public float FOV;
     
     public GlobalVariables GlobalVariables;
 
     [Header("Player")]
     public CharacterController Character;
     public Transform Player;
-    public float turnsmoothtime = 0.1f;
+    private float turnsmoothtime = 0.1f;
     private float turnsmoothvelocity;
+    public CinemachineFreeLook CinemachineCamera;
     public Camera PlayerCamera;
     public float MouseSensitivity;
     private bool IsGrounded;
@@ -26,11 +28,11 @@ public class PlayerMovement : MonoBehaviour
     public Transform Groundcheck;
     public LayerMask groundmask;
 
-    [Header("Gravity")]
+    [Header("Movement")]
     [SerializeField] private Vector3 Velocity;
-    [SerializeField] private float Gravity = 9.81f;
+    [SerializeField] private float Gravity = -9.81f;
     [SerializeField] private float GravityMultiplier = 2.3f;
-    [SerializeField] private float MovementSpeed = 7f;
+    private float MovementSpeed = 7f;
     [SerializeField] private float JumpPower;
     [SerializeField] private float WalkingSpeed;
     [SerializeField] private float SprintingSpeed;
@@ -39,18 +41,18 @@ public class PlayerMovement : MonoBehaviour
     private bool IsCrouching;
 
     [Header("Controls")]
-    [SerializeField] private InputActionReference moveinput, lookinput, jumpinput, sprintinput, crouchinput, zoominput;
+    [SerializeField] private InputActionReference moveinput;
+    [SerializeField] private InputActionReference jumpinput;
+    [SerializeField] private InputActionReference sprintinput;
+    [SerializeField] private InputActionReference crouchinput;
+    [SerializeField] private InputActionReference zoominput;
+    [SerializeField] private InputActionReference zoomoutinput;
+    [SerializeField] private InputActionReference zoomininput;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        MouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
-        //SET STARTING PHYSICS HERE
-        JumpPower = 6f;
-        CrouchingSpeed = 1.5f;
-        WalkingSpeed = 4f;
-        SprintingSpeed = 6;
-        GravityMultiplier = 1.5f;
-        MovementSpeed = WalkingSpeed;
+        //start
         Cursor.lockState = CursorLockMode.Locked;
     }
     // Update is called once per frame
@@ -58,15 +60,15 @@ public class PlayerMovement : MonoBehaviour
     {
         //Gravity Shit
         
-        Character.Move(Velocity * Time.deltaTime);
-        IsGrounded = Physics.CheckSphere(Groundcheck.position, 0.6f, groundmask);
+        Velocity.y += Gravity*GravityMultiplier * Time.deltaTime;
 
-        if (IsGrounded && Velocity.y > 0f)
+        Character.Move(Velocity * Time.deltaTime);
+        IsGrounded = Physics.CheckSphere(Groundcheck.position, 0.4f, groundmask);
+
+        if (IsGrounded && Velocity.y < 0)
         {
-            Debug.Log("Landed");
             Velocity.y = -2f;
         }
-         Velocity.y -= Gravity * Time.deltaTime;
 
         //---Movement---
         Vector3 move = moveinput.action.ReadValue<Vector3>().normalized;
@@ -82,12 +84,21 @@ public class PlayerMovement : MonoBehaviour
             Character.Move(movedir * MovementSpeed * Time.deltaTime);
         }
         //camera
+        if (zoomininput.action.IsPressed())
+        {
+            CurrentFOV -= 50f * Time.deltaTime;
+        }
+        if (zoomoutinput.action.IsPressed())
+        {
+            CurrentFOV += 50f * Time.deltaTime;
+        }
+
 
         //Sprinting
         if (IsSprinting && !IsCrouching && Character.velocity.magnitude > 0.1f)
         {
             MovementSpeed = SprintingSpeed;
-            PlayerCamera.fieldOfView = Mathf.Lerp(PlayerCamera.fieldOfView, 70, 0.02f);
+            CinemachineCamera.m_Lens.FieldOfView = Mathf.Lerp(CinemachineCamera.m_Lens.FieldOfView, CurrentFOV+10f, 0.02f);
         }
         else
         {
@@ -95,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 MovementSpeed = WalkingSpeed;
             }
-            PlayerCamera.fieldOfView = Mathf.Lerp(PlayerCamera.fieldOfView, 60, 0.02f);
+            CinemachineCamera.m_Lens.FieldOfView = Mathf.Lerp(CinemachineCamera.m_Lens.FieldOfView, CurrentFOV, 0.02f);
         }
 
         //Crouching
@@ -110,7 +121,6 @@ public class PlayerMovement : MonoBehaviour
                 MovementSpeed = WalkingSpeed;
             }
         }
-        PlayerCamera.enabled = true;
     }
 
     //Hey!! subscribe to events here v
@@ -138,10 +148,10 @@ public class PlayerMovement : MonoBehaviour
     private void JumpShit(InputAction.CallbackContext context)
     {
         {
-            if (context.performed)
+            if (context.performed&&IsGrounded)
             {
                 IsCrouching = false;
-                Velocity.y = JumpPower;
+                Velocity.y = Mathf.Sqrt(JumpPower * -2 * Gravity);
             }
         }
     }
