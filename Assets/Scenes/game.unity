@@ -724,8 +724,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617843172}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.036325093, y: -8.5984083e-16, z: -8.214906e-17, w: 0.99934006}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0000019073486}
+  m_LocalRotation: {x: -0.036325067, y: 0, z: 0, w: 0.99934006}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1035,8 +1035,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900584931}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.018189555, y: 1.4887949e-17, z: 2.0324633e-17, w: 0.9998346}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0000019073486}
+  m_LocalRotation: {x: -0.018189538, y: 0, z: 0, w: 0.9998346}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1226,7 +1226,7 @@ GameObject:
   - component: {fileID: 1046769377}
   - component: {fileID: 1046769376}
   - component: {fileID: 1046769379}
-  - component: {fileID: 1046769381}
+  - component: {fileID: 1046769380}
   m_Layer: 0
   m_Name: Third Person Camera
   m_TagString: Untagged
@@ -1383,7 +1383,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1046769381
+--- !u!114 &1046769380
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1392,9 +1392,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1046769375}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaf4757eab0cb2e488989272dc21233f, type: 3}
+  m_Script: {fileID: 11500000, guid: 87f459ce5314f124a8f1368b7ae2652e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  freeLook: {fileID: 0}
+  horizontalAimingSpeed: 20
+  verticalAimingSpeed: 20
+  yCorrection: 2
+  xAxisValue: 0
+  yAxisValue: 0
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1940,8 +1946,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1802879919}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.22381641, y: -2.3114148e-10, z: 5.307982e-11, w: 0.97463137}
-  m_LocalPosition: {x: 0, y: 5.312948, z: 3.0421495}
+  m_LocalRotation: {x: -0.00000001353494, y: -0.000000029794624, z: -4.7269034e-16, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
