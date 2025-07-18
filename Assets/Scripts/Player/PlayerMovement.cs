@@ -2,31 +2,54 @@ using UnityEngine;
 using Unity.Mathematics;
 using UnityEngine.InputSystem;
 using UnityEngine.Analytics;
-using Cinemachine;
+using Unity.Cinemachine;
+using UnityEngine.Rendering;
+using UnityEditor.ShaderGraph.Internal;
+using Unity.VisualScripting;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private float CurrentFOV=40f;
-    public float minFOV;
-    public float maxFOV;
-    public float ScrollSensitivity;
-    
     public GlobalVariables GlobalVariables;
 
+    [Header("Camera Settings")]
+    
+    public float minFOV=10f;
+    public float maxFOV=1f;
+    public float MouseSensitivity=1f;
+    public float ScrollSensitivity=5f;
+
+    private float CurrentCamScale = 10f;
+    private float CurrentFOV = 40f;
+
+    private float FOV
+    {
+        get
+        {
+            return CinemachineCamera.Lens.FieldOfView;
+        }
+
+        set
+        {
+            CinemachineCamera.Lens.FieldOfView = value;
+        }
+    }
+
+    //PLAYER
     [Header("Player")]
     public CharacterController Character;
     public Transform Player;
     private float turnsmoothtime = 0.1f;
     private float turnsmoothvelocity;
-    public CinemachineFreeLook CinemachineCamera;
+    public CinemachineOrbitalFollow OrbitalFollow;
+    public CinemachineCamera CinemachineCamera;
     public Camera PlayerCamera;
-    public float MouseSensitivity;
     private bool IsGrounded;
-    private float GroundDistance;
 
     [Header("Ground")]
     public Transform Groundcheck;
     public LayerMask groundmask;
+
+    //MOVEMENT
 
     [Header("Movement")]
     [SerializeField] private Vector3 Velocity;
@@ -39,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float CrouchingSpeed;
     private bool IsSprinting;
     private bool IsCrouching;
+
+    //INPUTS
 
     [Header("Controls")]
     [SerializeField] private InputActionReference moveinput;
@@ -86,19 +111,23 @@ public class PlayerMovement : MonoBehaviour
         //camera
         if (zoomininput.action.IsPressed())
         {
-            CurrentFOV -= 50f * Time.deltaTime;
+            CurrentCamScale += .1f;
         }
         if (zoomoutinput.action.IsPressed())
         {
-            CurrentFOV += 50f * Time.deltaTime;
+            CurrentCamScale -= .1f;
         }
 
+        CurrentCamScale-=Input.GetAxis("Mouse ScrollWheel")*ScrollSensitivity;
+
+        CurrentCamScale = Mathf.Clamp(CurrentCamScale, minFOV, maxFOV);
+        OrbitalFollow.Radius=Mathf.Lerp(OrbitalFollow.Radius, CurrentCamScale, 0.07f);
 
         //Sprinting
         if (IsSprinting && !IsCrouching && Character.velocity.magnitude > 0.1f)
         {
             MovementSpeed = SprintingSpeed;
-            CinemachineCamera.m_Lens.FieldOfView = Mathf.Lerp(CinemachineCamera.m_Lens.FieldOfView, CurrentFOV+10f, 0.02f);
+            FOV = Mathf.Lerp(FOV, CurrentFOV + 10f, 0.02f);
         }
         else
         {
@@ -106,7 +135,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 MovementSpeed = WalkingSpeed;
             }
-            CinemachineCamera.m_Lens.FieldOfView = Mathf.Lerp(CinemachineCamera.m_Lens.FieldOfView, CurrentFOV, 0.02f);
+            FOV = Mathf.Lerp(FOV, CurrentFOV, 0.02f);
         }
 
         //Crouching

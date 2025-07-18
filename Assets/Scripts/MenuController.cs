@@ -78,7 +78,7 @@ public class MenuController : MonoBehaviour
         string[] dimensions = PlayerPrefs.GetString("Resolution").Split('x'); // apply the resolution
         Screen.SetResolution(int.Parse(dimensions[0]), int.Parse(dimensions[1]), (FullScreenMode)GlobalVariables.Fullscreen);
 
-        Stepper[] steppers = FindObjectsOfType<Stepper>();
+        Stepper[] steppers = FindObjectsByType<Stepper>(FindObjectsSortMode.None);
         foreach (Stepper stepper in steppers)
         {stepper.UpdateStepperButtons();}
 
@@ -216,7 +216,7 @@ public class MenuController : MonoBehaviour
     {
         Debug.Log("Cancelled! Reverting all settings...");
 
-        Stepper[] steppers = FindObjectsOfType<Stepper>();
+        Stepper[] steppers = FindObjectsByType<Stepper>(FindObjectsSortMode.None);
 
         foreach (Stepper stepper in steppers)
         {
