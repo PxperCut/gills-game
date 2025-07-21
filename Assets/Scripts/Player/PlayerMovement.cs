@@ -1,22 +1,14 @@
 using UnityEngine;
-using Unity.Mathematics;
 using UnityEngine.InputSystem;
-using UnityEngine.Analytics;
 using Unity.Cinemachine;
-using UnityEngine.Rendering;
-using UnityEditor.ShaderGraph.Internal;
-using Unity.VisualScripting;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public GlobalVariables GlobalVariables;
 
     [Header("Camera Settings")]
     
     public float minFOV=10f;
     public float maxFOV=1f;
-    public float MouseSensitivity=1f;
-    public float ScrollSensitivity=5f;
 
     private float CurrentCamScale = 10f;
     private float CurrentFOV = 40f;
@@ -70,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private InputActionReference jumpinput;
     [SerializeField] private InputActionReference sprintinput;
     [SerializeField] private InputActionReference crouchinput;
-    [SerializeField] private InputActionReference zoominput;
     [SerializeField] private InputActionReference zoomoutinput;
     [SerializeField] private InputActionReference zoomininput;
 
@@ -95,10 +86,13 @@ public class PlayerMovement : MonoBehaviour
             Velocity.y = -2f;
         }
 
-        //---Movement---
-        Vector3 move = moveinput.action.ReadValue<Vector3>().normalized;
+        Vector3 move = moveinput.action.ReadValue<Vector3>();
+        Debug.Log(move);
+        
+        if (move.magnitude > 1f)
+            move = move.normalized;
 
-        if (move.magnitude>=1f)//move here
+        if (move.magnitude >= 0.1f)
         {
             float targetangle = Mathf.Atan2(move.x, move.z) * Mathf.Rad2Deg + PlayerCamera.transform.eulerAngles.y;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetangle, ref turnsmoothvelocity, turnsmoothtime);
@@ -106,8 +100,9 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 movedir = Quaternion.Euler(0f, targetangle, 0f) * Vector3.forward;
 
-            Character.Move(movedir * MovementSpeed * Time.deltaTime);
+            Character.Move(movedir * move.magnitude * MovementSpeed * Time.deltaTime);
         }
+
         //camera
         if (zoomininput.action.IsPressed())
         {
@@ -118,10 +113,10 @@ public class PlayerMovement : MonoBehaviour
             CurrentCamScale -= .1f;
         }
 
-        CurrentCamScale-=Input.GetAxis("Mouse ScrollWheel")*ScrollSensitivity;
+        CurrentCamScale-=Input.GetAxis("Mouse ScrollWheel")*4;
 
         CurrentCamScale = Mathf.Clamp(CurrentCamScale, minFOV, maxFOV);
-        OrbitalFollow.Radius=Mathf.Lerp(OrbitalFollow.Radius, CurrentCamScale, 0.07f);
+        OrbitalFollow.Radius=Mathf.Lerp(OrbitalFollow.Radius, CurrentCamScale, 0.1f);
 
         //Sprinting
         if (IsSprinting && !IsCrouching && Character.velocity.magnitude > 0.1f)

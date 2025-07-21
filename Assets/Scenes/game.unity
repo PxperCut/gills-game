@@ -278,11 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c863ba8a3c14a341b5cc24f172bf3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalVariables: {fileID: 0}
   minFOV: 1
   maxFOV: 10
-  MouseSensitivity: 1
-  ScrollSensitivity: 5
   Character: {fileID: 88256214}
   Player: {fileID: 88256213}
   OrbitalFollow: {fileID: 1174297666}
@@ -303,7 +300,6 @@ MonoBehaviour:
   jumpinput: {fileID: 7048443009983936713, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
   sprintinput: {fileID: 1967846816554302956, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
   crouchinput: {fileID: -8679938159756763931, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
-  zoominput: {fileID: 875230612576309054, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
   zoomoutinput: {fileID: 754340376870554596, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
   zoomininput: {fileID: -1818851899528030786, guid: 6e6a0b6e738e0354d9bbfb507e498d08, type: 3}
 --- !u!114 &177285199
@@ -333,7 +329,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: Player
+  m_DefaultActionMap: Keyboard
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 961739752}
 --- !u!1 &203844586

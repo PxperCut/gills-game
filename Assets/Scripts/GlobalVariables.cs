@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalVariables : MonoBehaviour
@@ -22,7 +19,12 @@ public class GlobalVariables : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
+Debug.Log("GraphicsQuality: " + GraphicsQuality);
+Debug.Log("ShadowQuality: " + ShadowQuality);
+Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolution);
 
+        DontDestroyOnLoad(this);
+        
         //GRAPHICS
         //Fullscreen
         Fullscreen = PlayerPrefs.HasKey("Fullscreen") ///basically check if player pref exists 
@@ -34,7 +36,6 @@ public class GlobalVariables : MonoBehaviour
         Vsync = PlayerPrefs.HasKey("VSYNC")
             ? QualitySettings.vSyncCount = PlayerPrefs.GetInt("VSYNC")
             : QualitySettings.vSyncCount = 1;
-
 
         //AA
             antiAliasing = PlayerPrefs.HasKey("antiAliasing")
@@ -60,7 +61,6 @@ public class GlobalVariables : MonoBehaviour
         {
             QualitySettings.SetQualityLevel(5);
         }
-
 
         //Shadow Quality
         if (PlayerPrefs.HasKey("ShadowQuality"))
@@ -104,7 +104,6 @@ public class GlobalVariables : MonoBehaviour
         }
 
         //AUDIO/VIDEO
-
         //SUBTITLES
         if (PlayerPrefs.HasKey("Subtitles"))
         {

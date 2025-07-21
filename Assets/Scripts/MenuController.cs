@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -48,25 +45,11 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void ApplyGraphicalChanges() 
+    public void ApplyGraphicalChanges()
     {
         PlayerPrefs.SetString("Resolution", GlobalVariables.Resolution);
         ResolutionPopupMenu.SetActive(false);
-        PlayerPrefs.SetInt("Fullscreen", GlobalVariables.Fullscreen); //if their resolution is already player prefs, ignore this
-        PlayerPrefs.SetInt("VSYNC", GlobalVariables.Vsync);
-        PlayerPrefs.SetInt("antiAliasing", GlobalVariables.antiAliasing);
-        PlayerPrefs.SetInt("GraphicsQuality", GlobalVariables.GraphicsQuality);
-        PlayerPrefs.SetInt("ShadowQuality", GlobalVariables.ShadowQuality);
-
-        PlayerPrefs.SetInt("InvertY", GlobalVariables.InvertY);
-        PlayerPrefs.SetInt("AutocompleteQTE", GlobalVariables.AutocompleteQTE);
-
-        PlayerPrefs.SetInt("Subtitles", GlobalVariables.Subtitles);
-
-        GlobalVariables.MasterVolume = VolSlider.value;
-        PlayerPrefs.SetFloat("MasterVolume", GlobalVariables.MasterVolume);
-
-        SwitchMenuWithoutTransitions(SettingsMenu); //go back to settings
+        ApplyChanges();
     }
     public void DenyGraphicalChanges() 
     {
@@ -133,11 +116,6 @@ public class MenuController : MonoBehaviour
         DeactivateMenus();
         targetMenu.SetActive(true);
         EnableMenuButtons();
-    }
-
-    public void Awake()
-    {
-        DontDestroyOnLoad(this);
     }
 
     // Go to Menu
@@ -208,6 +186,7 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetInt("InvertY", GlobalVariables.InvertY);
             PlayerPrefs.SetInt("AutocompleteQTE", GlobalVariables.AutocompleteQTE);
 
+            PlayerPrefs.Save();
             SwitchMenuWithoutTransitions(SettingsMenu); //go back to settings
         }
     }
@@ -234,7 +213,6 @@ public class MenuController : MonoBehaviour
                     break;
 
                 case "antiAliasing":
-                    // Revert antiAliasing from PlayerPrefs
                     GlobalVariables.antiAliasing = PlayerPrefs.GetInt("antiAliasing");
                     QualitySettings.antiAliasing = GlobalVariables.antiAliasing;
                     break;
@@ -249,6 +227,7 @@ public class MenuController : MonoBehaviour
 
                 case "ShadowQuality":
                     GlobalVariables.ShadowQuality = PlayerPrefs.GetInt("ShadowQuality");
+                    print("Got shadow quality...: " + GlobalVariables.ShadowQuality);
                     break;
 
                 //GAMEPLAY
@@ -290,6 +269,7 @@ public class MenuController : MonoBehaviour
     {
         QuitGamePopup.SetActive(false);
     }
+
         public void QuitGame()
     {
         QuitGamePopup.SetActive(true);
@@ -305,7 +285,7 @@ public void Quit()
     {
         if (TimeRemaining > 0)
         {
-            TimeRemaining -= Time.deltaTime;  // Decrease the timer
+            TimeRemaining -= Time.deltaTime;  //decrease timer
             ResolutionPopupMenu.GetComponent<Popup>().TimerText.text = Mathf.RoundToInt(TimeRemaining).ToString();
         }
         else //basically you took too long lol
