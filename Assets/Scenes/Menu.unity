@@ -6499,32 +6499,36 @@ PrefabInstance:
       value: 279.02176
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
+      propertyPath: Index
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: StepperType
-      value: GraphicsQuality
+      value: ShadowQuality
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: options.Array.size
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: 'options.Array.data[0]'
-      value: Lowest
-      objectReference: {fileID: 0}
-    - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
-      propertyPath: 'options.Array.data[1]'
       value: Low
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
-      propertyPath: 'options.Array.data[2]'
+      propertyPath: 'options.Array.data[1]'
       value: Medium
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
-      propertyPath: 'options.Array.data[3]'
+      propertyPath: 'options.Array.data[2]'
       value: High
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
-      propertyPath: 'options.Array.data[4]'
+      propertyPath: 'options.Array.data[3]'
       value: Best
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
+      propertyPath: 'options.Array.data[4]'
+      value: Lowest
       objectReference: {fileID: 0}
     - target: {fileID: 4192153428157487606, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: m_Name
