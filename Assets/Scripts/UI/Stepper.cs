@@ -70,11 +70,11 @@ public class Stepper : MonoBehaviour
                 {
                     //Windowed
                     case 0:
-                        GlobalVariables.Fullscreen = 3;
+                        GlobalVariables.Fullscreen = 4;
                         break;
                      //Fullscreen
                     case 1:
-                        GlobalVariables.Fullscreen = 2;
+                        GlobalVariables.Fullscreen = 1;
                         break;
                 }
                 Screen.fullScreenMode = (FullScreenMode)GlobalVariables.Fullscreen;
@@ -86,7 +86,6 @@ public class Stepper : MonoBehaviour
                 break;
 
             case "antiAliasing":
-                print(Index);
                 switch (Index)
                 {
                     case 0: //Off
@@ -192,7 +191,7 @@ public void OnStepUp()
             break;
 
             case "Fullscreen":
-                Index = GlobalVariables.Fullscreen == 2 ? 1 : 0;
+                Index = GlobalVariables.Fullscreen == 4 ? 0 : 1;
                 break;
 
             case "Resolution":

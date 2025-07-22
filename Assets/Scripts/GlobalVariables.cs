@@ -14,7 +14,7 @@ public class GlobalVariables : MonoBehaviour
     public static float MasterVolume;
     public static float MusicVolume;
     public static float SpeakerVolume;
-    public static float MouseSensitivity;
+    public static float CameraSensitivity;
 
     // Start is called before the first frame update
     public void Awake()
@@ -83,13 +83,13 @@ public class GlobalVariables : MonoBehaviour
         }
 
         //Mouse Sensitivity
-        if (PlayerPrefs.HasKey("MouseSensitivity"))
+        if (PlayerPrefs.HasKey("CameraSensitivity"))
         {
-            MouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
+            CameraSensitivity = PlayerPrefs.GetFloat("CameraSensitivity");
         }
         else
         {
-            MouseSensitivity = 0.6f;
+            CameraSensitivity = .8f;
         }
 
         //Autocomplete QTE

@@ -27,7 +27,7 @@ public class MenuController : MonoBehaviour
     public Slider VolSlider;
     public Slider MusicVolSlider;
     public Slider SpeakerVolSlider;
-    public Slider MouseSensitivitySlider;
+    public Slider CameraSensitivitySlider;
 
     public void DisableMenuButtons()
     {
@@ -83,8 +83,8 @@ public class MenuController : MonoBehaviour
         GlobalVariables.MusicVolume = PlayerPrefs.GetFloat("MusicVolume");
         MusicVolSlider.value = GlobalVariables.MusicVolume;
 
-        GlobalVariables.MouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
-        MouseSensitivitySlider.value = GlobalVariables.MouseSensitivity;
+        GlobalVariables.CameraSensitivity = PlayerPrefs.GetFloat("CameraSensitivity");
+        CameraSensitivitySlider.value = GlobalVariables.CameraSensitivity;
     }
 
     private void DeactivateMenus()
@@ -181,8 +181,8 @@ public class MenuController : MonoBehaviour
             PlayerPrefs.SetFloat("MusicVolume", GlobalVariables.MusicVolume);
 
             //GAMEPLAY
-            GlobalVariables.MouseSensitivity = MouseSensitivitySlider.value;
-            PlayerPrefs.SetFloat("MouseSensitivity", GlobalVariables.MouseSensitivity);
+            GlobalVariables.CameraSensitivity = CameraSensitivitySlider.value;
+            PlayerPrefs.SetFloat("CameraSensitivity", GlobalVariables.CameraSensitivity);
             PlayerPrefs.SetInt("InvertY", GlobalVariables.InvertY);
             PlayerPrefs.SetInt("AutocompleteQTE", GlobalVariables.AutocompleteQTE);
 
@@ -259,8 +259,8 @@ public class MenuController : MonoBehaviour
         GlobalVariables.MusicVolume = PlayerPrefs.GetFloat("MusicVolume");
         MusicVolSlider.value = GlobalVariables.MusicVolume;
 
-        GlobalVariables.MouseSensitivity = PlayerPrefs.GetFloat("MouseSensitivity");
-        MouseSensitivitySlider.value = GlobalVariables.MouseSensitivity;
+        GlobalVariables.CameraSensitivity = PlayerPrefs.GetFloat("CameraSensitivity");
+        CameraSensitivitySlider.value = GlobalVariables.CameraSensitivity;
         }
 
         SwitchMenuWithoutTransitions(SettingsMenu);

@@ -283,6 +283,7 @@ MonoBehaviour:
   Character: {fileID: 88256214}
   Player: {fileID: 88256213}
   OrbitalFollow: {fileID: 1174297666}
+  AxisController: {fileID: 1174297663}
   CinemachineCamera: {fileID: 1174297667}
   PlayerCamera: {fileID: 961739752}
   Groundcheck: {fileID: 2144800978}

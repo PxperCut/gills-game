@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     private float turnsmoothtime = 0.1f;
     private float turnsmoothvelocity;
     public CinemachineOrbitalFollow OrbitalFollow;
+    public CinemachineInputAxisController AxisController;
     public CinemachineCamera CinemachineCamera;
     public Camera PlayerCamera;
     private bool IsGrounded;
@@ -75,7 +76,21 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log("Shadow Resolution: " + QualitySettings.shadowResolution);
         //Debug.Log("AntiAliasing: " + QualitySettings.antiAliasing);
         //Debug.Log("VSync: " + QualitySettings.vSyncCount);
+
+        print("Invert Y: " + GlobalVariables.InvertY);
+
+        foreach (var c in AxisController.Controllers)
+        {
+            if (c.Name == "Look Orbit X")
+                c.Input.Gain = GlobalVariables.CameraSensitivity;
+            else if (c.Name == "Look Orbit Y")
+            {//
+                float direction = GlobalVariables.InvertY == 1 ? 1f : -1f;
+                c.Input.Gain = direction * GlobalVariables.CameraSensitivity/5;
+            }
+        }
     }
+
     // Update is called once per frame
     void Update()
     {
