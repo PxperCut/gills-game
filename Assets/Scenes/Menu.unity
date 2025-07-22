@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_Antialiasing: 1
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -5308,7 +5308,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: StepperType
-      value: VSYNC
+      value: antiAliasing
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: startingIndex
@@ -5316,7 +5316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: options.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: 'options.Array.data[0]'
@@ -5324,7 +5324,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: 'options.Array.data[1]'
-      value: On
+      value: MSAA 2x
+      objectReference: {fileID: 0}
+    - target: {fileID: 3123049248378169651, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
+      propertyPath: 'options.Array.data[2]'
+      value: MSAA 4x
       objectReference: {fileID: 0}
     - target: {fileID: 4192153428157487606, guid: 863cca50c7881814aab657fdac67c9cf, type: 3}
       propertyPath: m_Name

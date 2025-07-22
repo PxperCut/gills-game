@@ -51,53 +51,17 @@ public class Stepper : MonoBehaviour
                 
 
             case "GraphicsQuality":
-                switch (Index)
-                {
-                    //Lowest
-                    case 0:
-                        GlobalVariables.GraphicsQuality = 1;
-                        break;
-                    //Low
-                    case 1:
-                        GlobalVariables.GraphicsQuality = 2;
-                        break;
-                    //Medium
-                    case 2:
-                        GlobalVariables.GraphicsQuality = 3;
-                        break;
-                    //High
-                    case 3:
-                        GlobalVariables.GraphicsQuality = 4;
-                        break;
-                    //Highest
-                    case 4:
-                        GlobalVariables.GraphicsQuality = 5;
-                        break;
-                }
+                GlobalVariables.GraphicsQuality = Index+1;
                 QualitySettings.SetQualityLevel(GlobalVariables.GraphicsQuality);
+
+                QualitySettings.shadowResolution = (ShadowResolution)GlobalVariables.ShadowQuality;
+                QualitySettings.antiAliasing = GlobalVariables.antiAliasing;
+                QualitySettings.vSyncCount = GlobalVariables.Vsync;
                 break;
 
 
             case "ShadowQuality":
-                switch (Index)
-                {
-                    //Low
-                    case 0:
-                        GlobalVariables.ShadowQuality = 0;
-                        break;
-                    //Medium
-                    case 1:
-                        GlobalVariables.ShadowQuality = 1;
-                        break;
-                    //High
-                    case 2:
-                        GlobalVariables.ShadowQuality = 2;
-                        break;
-                    //VeryHigh
-                    case 3:
-                        GlobalVariables.ShadowQuality = 3;
-                        break;
-                }
+                GlobalVariables.ShadowQuality = Index;
                 QualitySettings.shadowResolution = (ShadowResolution)GlobalVariables.ShadowQuality;
                 break;
 
@@ -117,32 +81,22 @@ public class Stepper : MonoBehaviour
                 break;
 
             case "VSYNC":
-                switch (Index)
-                {
-                    //Vsync Off
-                    case 0:
-                        GlobalVariables.Vsync = 0;
-                        break;
-
-                    //Vsync On
-                    case 1:
-                        GlobalVariables.Vsync = 1;
-                        break;
-                }
+                GlobalVariables.Vsync = Index;
                 QualitySettings.vSyncCount = GlobalVariables.Vsync;
                 break;
 
             case "antiAliasing":
+                print(Index);
                 switch (Index)
                 {
-                    //Antialiasing Off
-                    case 0:
+                    case 0: //Off
                         GlobalVariables.antiAliasing = 0;
                         break;
-
-                    //Antialiasing On
-                    case 1:
-                        GlobalVariables.antiAliasing = 1;
+                    case 1: //2x MSAA
+                        GlobalVariables.antiAliasing = 2;
+                        break;
+                    case 2: //4x MSAA
+                        GlobalVariables.antiAliasing = 4;
                         break;
                 }
                 QualitySettings.antiAliasing = GlobalVariables.antiAliasing;
@@ -222,9 +176,20 @@ public void OnStepUp()
                 Index = GlobalVariables.Vsync;
                 break;
 
-            case "antiAliasing":
-                Index = GlobalVariables.antiAliasing;
-                break;
+        case "antiAliasing":
+            switch (GlobalVariables.antiAliasing)
+            {
+                case 0:
+                    Index = 0;
+                    break;
+                case 2:
+                    Index = 1;
+                    break;
+                case 4:
+                    Index = 2;
+                    break;
+            }
+            break;
 
             case "Fullscreen":
                 Index = GlobalVariables.Fullscreen == 2 ? 1 : 0;

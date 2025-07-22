@@ -36,8 +36,8 @@ public class GlobalVariables : MonoBehaviour
 
         //AA
         antiAliasing = PlayerPrefs.HasKey("antiAliasing")
-    ? QualitySettings.antiAliasing = PlayerPrefs.GetInt("antiAliasing")
-    : QualitySettings.antiAliasing = 1;
+            ? QualitySettings.antiAliasing = PlayerPrefs.GetInt("antiAliasing")
+            : QualitySettings.antiAliasing = 4;
 
         //Res
         Resolution = PlayerPrefs.HasKey("Resolution")
@@ -53,6 +53,7 @@ public class GlobalVariables : MonoBehaviour
         if (PlayerPrefs.HasKey("GraphicsQuality"))
         {
             GraphicsQuality = PlayerPrefs.GetInt("GraphicsQuality");
+            QualitySettings.SetQualityLevel(GraphicsQuality);
         }
         else
         {
@@ -63,6 +64,7 @@ public class GlobalVariables : MonoBehaviour
         if (PlayerPrefs.HasKey("ShadowQuality"))
         {
             ShadowQuality = PlayerPrefs.GetInt("ShadowQuality");
+            QualitySettings.shadowResolution = (ShadowResolution)ShadowQuality;
         }
         else
         {
@@ -140,8 +142,5 @@ public class GlobalVariables : MonoBehaviour
         {
             SpeakerVolume = 1f;  // Default to full volume
         }
-        
-Debug.Log("ShadowQuality: " + ShadowQuality);
-Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolution);
     }
 }

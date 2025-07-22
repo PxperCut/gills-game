@@ -223,10 +223,12 @@ public class MenuController : MonoBehaviour
 
                 case "GraphicsQuality":
                     GlobalVariables.GraphicsQuality = PlayerPrefs.GetInt("GraphicsQuality");
+                    QualitySettings.SetQualityLevel(GlobalVariables.GraphicsQuality);
                     break;
 
                 case "ShadowQuality":
                     GlobalVariables.ShadowQuality = PlayerPrefs.GetInt("ShadowQuality");
+                    QualitySettings.shadowResolution = (ShadowResolution)GlobalVariables.ShadowQuality;
                     break;
 
                 //GAMEPLAY

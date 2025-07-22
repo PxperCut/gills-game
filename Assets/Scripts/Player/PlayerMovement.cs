@@ -70,6 +70,11 @@ public class PlayerMovement : MonoBehaviour
     {
         //start
         Cursor.lockState = CursorLockMode.Locked;
+
+        //Debug.Log("Graphics Level: " + QualitySettings.GetQualityLevel());
+        //Debug.Log("Shadow Resolution: " + QualitySettings.shadowResolution);
+        //Debug.Log("AntiAliasing: " + QualitySettings.antiAliasing);
+        //Debug.Log("VSync: " + QualitySettings.vSyncCount);
     }
     // Update is called once per frame
     void Update()
@@ -87,7 +92,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Vector3 move = moveinput.action.ReadValue<Vector3>();
-        Debug.Log(move);
         
         if (move.magnitude > 1f)
             move = move.normalized;
