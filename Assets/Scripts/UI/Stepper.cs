@@ -81,25 +81,21 @@ public class Stepper : MonoBehaviour
             case "ShadowQuality":
                 switch (Index)
                 {
-                    //Lowest
-                    case 0:
-                        GlobalVariables.ShadowQuality = 1;
-                        break;
                     //Low
-                    case 1:
-                        GlobalVariables.ShadowQuality = 2;
+                    case 0:
+                        GlobalVariables.ShadowQuality = 0;
                         break;
                     //Medium
-                    case 2:
-                        GlobalVariables.ShadowQuality = 3;
+                    case 1:
+                        GlobalVariables.ShadowQuality = 1;
                         break;
                     //High
-                    case 3:
-                        GlobalVariables.ShadowQuality = 4;
+                    case 2:
+                        GlobalVariables.ShadowQuality = 2;
                         break;
-                    //Highest
-                    case 4:
-                        GlobalVariables.ShadowQuality = 5;
+                    //VeryHigh
+                    case 3:
+                        GlobalVariables.ShadowQuality = 3;
                         break;
                 }
                 QualitySettings.shadowResolution = (ShadowResolution)GlobalVariables.ShadowQuality;
@@ -240,6 +236,10 @@ public void OnStepUp()
 
             case "GraphicsQuality":
                 Index = GlobalVariables.GraphicsQuality - 1;
+                break;
+
+            case "ShadowQuality":
+                Index = GlobalVariables.ShadowQuality;
                 break;
 
             case "InvertY":

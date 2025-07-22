@@ -19,12 +19,9 @@ public class GlobalVariables : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
-Debug.Log("GraphicsQuality: " + GraphicsQuality);
-Debug.Log("ShadowQuality: " + ShadowQuality);
-Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolution);
 
         DontDestroyOnLoad(this);
-        
+
         //GRAPHICS
         //Fullscreen
         Fullscreen = PlayerPrefs.HasKey("Fullscreen") ///basically check if player pref exists 
@@ -38,9 +35,9 @@ Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolutio
             : QualitySettings.vSyncCount = 1;
 
         //AA
-            antiAliasing = PlayerPrefs.HasKey("antiAliasing")
-        ? QualitySettings.antiAliasing = PlayerPrefs.GetInt("antiAliasing")
-        : QualitySettings.antiAliasing = 1;
+        antiAliasing = PlayerPrefs.HasKey("antiAliasing")
+    ? QualitySettings.antiAliasing = PlayerPrefs.GetInt("antiAliasing")
+    : QualitySettings.antiAliasing = 1;
 
         //Res
         Resolution = PlayerPrefs.HasKey("Resolution")
@@ -69,7 +66,7 @@ Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolutio
         }
         else
         {
-            QualitySettings.shadowResolution = (ShadowResolution)GlobalVariables.ShadowQuality;
+            QualitySettings.shadowResolution = ShadowResolution.Low;
         }
 
         //GAMEPLAY
@@ -143,5 +140,8 @@ Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolutio
         {
             SpeakerVolume = 1f;  // Default to full volume
         }
+        
+Debug.Log("ShadowQuality: " + ShadowQuality);
+Debug.Log("QualitySettings.shadowResolution: " + QualitySettings.shadowResolution);
     }
 }
