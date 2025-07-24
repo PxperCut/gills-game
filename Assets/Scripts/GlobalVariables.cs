@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 
 public class GlobalVariables : MonoBehaviour
@@ -16,11 +18,13 @@ public class GlobalVariables : MonoBehaviour
     public static float SpeakerVolume;
     public static float CameraSensitivity;
 
-    // Start is called before the first frame update
-    public void Awake()
+    [RuntimeInitializeOnLoadMethod]
+    static void OnRuntimeMethodLoad()
     {
-
-        DontDestroyOnLoad(this);
+        GameObject console = Instantiate(Resources.Load<GameObject>("Prefabs/DevConsole"));
+        DontDestroyOnLoad(console);
+        console.name = "DevConsole";
+        print("created console");
 
         //GRAPHICS
         //Fullscreen
