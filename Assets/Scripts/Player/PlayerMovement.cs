@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             else if (c.Name == "Look Orbit Y")
             {//
                 float direction = GlobalVariables.InvertY == 1 ? 1f : -1f;
-                c.Input.Gain = direction * GlobalVariables.CameraSensitivity/5;
+                c.Input.Gain = direction * GlobalVariables.CameraSensitivity/3;
             }
         }
     }

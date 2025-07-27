@@ -21,6 +21,8 @@ public class GlobalVariables : MonoBehaviour
     [RuntimeInitializeOnLoadMethod]
     static void OnRuntimeMethodLoad()
     {
+        //spawn dev console, then initialize global variables at the start of our game
+        
         GameObject console = Instantiate(Resources.Load<GameObject>("Prefabs/DevConsole"));
         DontDestroyOnLoad(console);
         console.name = "DevConsole";
