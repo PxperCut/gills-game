@@ -2,6 +2,7 @@
 using QFSW.QC.QGUI;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace QFSW.QC.Editor
 {
